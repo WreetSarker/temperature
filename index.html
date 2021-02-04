@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="getCity" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="search" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city">Dhaka</h1>
+            <h3><span id="temp">38.06</span>&deg;C</h3>
+            <h1 id="sky" class="lead">Clouds</h1>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('search').addEventListener('click', function () {
+            const city = document.getElementById('getCity').value;
+            const url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&APPID=f4fd58272f8be928ccb68c851b616187';
+            fetch(url)
+                .then(resp => resp.json())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('temp').innerText = data.main.temp;
+                    document.getElementById('city').innerText = data.name;
+                    document.getElementById('sky').innerText = data.weather[0].main;
+                })
+        });
+
+    </script>
+</body>
+
+</html>
